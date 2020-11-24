@@ -9,7 +9,10 @@ Widget profileIntro() =>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Welcome back Ajay',style: stonksTheme().textTheme.bodyText2,),
+          Text(
+            'Welcome back Ajay 👋',
+            style: stonksTheme().textTheme.bodyText2,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

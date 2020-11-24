@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stonks_demo/components/portfolio_widgets/alert_banner.dart';
+import 'package:stonks_demo/components/portfolio_widgets/appbar_action_button.dart';
 import 'package:stonks_demo/components/portfolio_widgets/messaging_widget.dart';
 import 'package:stonks_demo/components/portfolio_widgets/portfolio_user.dart';
 import 'package:stonks_demo/services/portfolio_data.dart';
@@ -10,13 +12,13 @@ import 'package:stonks_demo/shared/ui_helpers.dart';
 
 class PortfolioDetails extends StatefulWidget {
   final String portfolioTitle;
+
   PortfolioDetails(this.portfolioTitle);
   @override
   _PortfolioDetailsState createState() => _PortfolioDetailsState();
 }
 
 class _PortfolioDetailsState extends State<PortfolioDetails> {
-  TextEditingController _textEditingController;
   ScrollController _scrollController = ScrollController();
   FocusNode _focus = new FocusNode();
   bool showAlertBanner = true;
@@ -40,7 +42,6 @@ class _PortfolioDetailsState extends State<PortfolioDetails> {
         duration: const Duration(milliseconds: 300),
       );
     }
-    _textEditingController = TextEditingController();
     super.initState();
   }
   @override
@@ -110,26 +111,7 @@ class _PortfolioDetailsState extends State<PortfolioDetails> {
                       .apply(color: customGreen))
             ],
           ),
-          Container(
-            height: 10,
-            width: 70,
-            margin: allSymmetric(13.0, 12.00),
-            child: Center(
-              child: FlatButton(
-                onPressed: () {},
-                padding: allCustompx(0.0),
-                color: customGreen,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
-                child: Center(
-                    child: Text('Trade',
-                        style: stonksTheme()
-                            .textTheme
-                            .headline6
-                            .apply(color: Colors.white))),
-              ),
-            ),
-          )
+          tradeButton()
         ],
       ),
       body: Stack(
@@ -183,31 +165,7 @@ class _PortfolioDetailsState extends State<PortfolioDetails> {
               ),
             ),
           ),
-          showAlertBanner
-              ? Container(
-                  color: Colors.redAccent,
-                  child: Padding(
-                    padding: all12px(),
-                    child: RichText(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      text: TextSpan(
-                          text: 'Restore your position in',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: ' 21',
-                              style: TextStyle(color: Colors.white, fontSize: 14,fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(
-                                text: ' days, or you will be kicked out of the stock market',
-                              style: TextStyle(color: Colors.white, fontSize: 12),
-                            )
-                          ]),
-                    ),
-                  ),
-                )
-              : Container()
+          showAlertBanner ? alertBanner(context) : Container()
         ],
       ),
     );
